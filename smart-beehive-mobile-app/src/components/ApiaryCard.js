@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+import { uk } from 'date-fns/locale';
 import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
@@ -13,7 +15,7 @@ const ApirayCard = ({ apiary, onPress }) => {
         <View style={styles.header}>
 
           <View style={{ margin: '4 10 0 0' }}>
-            <Text style={styles.date}>{new Date().toLocaleString()}</Text>
+            <Text style={styles.date}>{format(new Date(), "d MMMM HH:mm", { locale: uk })}</Text>
           </View>
 
           <View>
@@ -39,7 +41,6 @@ const ApirayCard = ({ apiary, onPress }) => {
             />
           </View>
 
-          {/* Нижні мед та кількість вуликів в пасіці */}
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
 
             <View style={styles.honeyLevelContainer}>
@@ -49,7 +50,7 @@ const ApirayCard = ({ apiary, onPress }) => {
                 }}
                   style={styles.honeyLevelIcon}
                 />
-                <Text >+5 кг</Text>
+                <Text >{apiary.totalWeight}</Text>
               </View>
             </View>
 
@@ -64,7 +65,7 @@ const ApirayCard = ({ apiary, onPress }) => {
               </View>
 
               <View>
-                <Text style={styles.apirayCount}>40</Text>
+                <Text style={styles.apirayCount}>{apiary.beehivesCount}</Text>
               </View>
             </View>
 
