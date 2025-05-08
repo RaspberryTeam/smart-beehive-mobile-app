@@ -1,10 +1,26 @@
-export const lineCharData = {
-    labels: ['1:00', '2:00', '3:00', '4:00', '5:00', '6:00'],
-    datasets: [
-        {
-            data: [13, 15, 17, 19, 18, 20],  
-            strokeWidth: 10,
-            color: (opacity = 1) => `rgba(0, 0, 139, ${opacity})`,
-        }
-    ],
+import { format } from "date-fns"
+
+export const formatDataset = (data) => {
+
+    if (!data) {
+        return { labels: [], datasets: [{ data: [] }] };
+    }
+
+
+    const labels = data.map((date) => {
+        return format(new Date(date.createdAt), "HH:mm");
+    }).reverse();
+
+    const temperature = data.map((item) => item.temperature);
+
+    return {
+        labels: labels,
+        datasets: [
+            {
+                data: temperature,
+                strokeWidth: 10,
+                color: (opacity = 1) => `rgba(0, 0, 139, ${opacity})`,
+            }
+        ]
+    };
 }
